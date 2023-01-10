@@ -11,6 +11,7 @@ import input.Input;
 import actiontypes.on.OnPage;
 import actiontypes.on.OnPageFactory;
 import input.MovieInput;
+import input.Notifications;
 
 import java.util.*;
 
@@ -60,43 +61,11 @@ public final class SolveActions {
             }
         }
 
-//        if (input.getCurrUser().getCredentials().getAccountType().compareTo("premium") == 0) {
-////            Hashtable<String, Integer> genres = new Hashtable<>();
-//            ArrayList<String> genreTop = new ArrayList<>(genres.keySet());
-//            ArrayList<Integer> genreOrder = new ArrayList<>(genres.values());
-//
-//            for (MovieInput movie : input.getCurrUser().getLikedMovies()) {
-//
-//                for (String genre : movie.getGenres()) {
-//
-//                    if (!genreTop.contains(genre)) {
-////                        genres.put(genre, 1);
-//                        genreTop.add(genre);
-//                    } else {
-////                        genres.put(genre, genres.get(genre) + 1);
-//                        genreOrder
-//                    }
-//                }
-//            }
-
-//            Integer max = 0;
-//
-//            for (Integer numberOfLikes : genres.values()) {
-//
-//            }
-
-//            ArrayList<String> genreTop = new ArrayList<>(genres.keySet());
-//            ArrayList<Integer> genreOrder = new ArrayList<>(genres.values());
-
-//            Comparator<ArrayList<Integer>> comparator = new Comparator<ArrayList<Integer>>() {
-//                @Override
-//                public int compare(ArrayList<Integer> o1, ArrayList<Integer> o2) {
-//                    return Integer.  o1;
-//                }
-//            }
-//
-//            Collections.sort(genreTop);
-
-//        }
+        if (input.getCurrUser() != null) {
+            if (input.getCurrUser().getCredentials().getAccountType().compareTo("premium") == 0) {
+                Recommendation recommendation = new Recommendation();
+                recommendation.recommendation(input, output);
+            }
+        }
     }
 }
