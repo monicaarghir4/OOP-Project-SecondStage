@@ -1,5 +1,7 @@
 package actiontypes.on;
 
+import actiontypes.on.filterstrategy.Filter;
+
 public class OnPageFactory {
     /**
      * generates object of concrete class based on given information
