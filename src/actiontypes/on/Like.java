@@ -20,9 +20,6 @@ public class Like implements OnPage {
     public void onPageAction(final Input input, final ActionInput actionInput,
                              final ArrayNode output) {
 
-//        VerifyErrors verifyErrors =  new VerifyErrors();
-        OutputError outputError = new OutputError();
-
         if (VerifyErrors.checkPage(input, "see details")) {
             UserInput currUser = input.getCurrUser();
 
@@ -44,15 +41,14 @@ public class Like implements OnPage {
                 // adding the movie to the list of the movies the users liked
                 currUser.getLikedMovies().add(input.getCurrMovie());
 
-                OutputSeeDetails outputSeeDetails = new OutputSeeDetails();
-                outputSeeDetails.createOutputSeeDetails(input, input.getCurrMovie(), output);
+                OutputSeeDetails.createOutputSeeDetails(input, input.getCurrMovie(), output);
 
             } else {
-                outputError.outputError(input, true, output);
+                OutputError.outputError(input, true, output);
             }
 
         } else {
-            outputError.outputError(input, true, output);
+            OutputError.outputError(input, true, output);
         }
     }
 }

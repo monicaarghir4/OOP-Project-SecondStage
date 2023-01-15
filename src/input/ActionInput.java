@@ -14,6 +14,9 @@ public class ActionInput {
 
     private String subscribedGenre;
 
+    /**
+     * @return the genre we're subscribing to
+     */
     public String getSubscribedGenre() {
         return subscribedGenre;
     }
@@ -22,24 +25,18 @@ public class ActionInput {
 
     private String deletedMovie;
 
+    /**
+     * @return the movie we are going to delete
+     */
     public String getDeletedMovie() {
         return deletedMovie;
     }
 
-    public void setDeletedMovie(String deletedMovie) {
-        this.deletedMovie = deletedMovie;
-    }
-
+    /**
+     * @return the movie we will add
+     */
     public MovieInput getAddedMovie() {
         return addedMovie;
-    }
-
-    public void setAddedMovie(MovieInput addedMovie) {
-        this.addedMovie = addedMovie;
-    }
-
-    public void setSubscribedGenre(String subscribedGenre) {
-        this.subscribedGenre = subscribedGenre;
     }
 
     /**

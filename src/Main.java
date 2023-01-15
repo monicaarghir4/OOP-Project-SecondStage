@@ -6,7 +6,10 @@ import solving.SolveActions;
 
 import java.io.File;
 
-public class Main {
+public final class Main {
+    private Main() {
+    }
+
     /**
      * the starting point of the project
      * @param args the arguments which are the files for the input and output

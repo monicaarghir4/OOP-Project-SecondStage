@@ -5,13 +5,16 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import input.MovieInput;
 
-public class OutputMovieFormat {
+public final class OutputMovieFormat {
+    private OutputMovieFormat() {
+    }
+
     /**
      * method that creates a json format for the output
      * @param moviesInput the movie
      * @return a json object node
      */
-    public ObjectNode createOutputMovieFormat(final MovieInput moviesInput) {
+    public static ObjectNode createOutputMovieFormat(final MovieInput moviesInput) {
 
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode movie = mapper.createObjectNode();

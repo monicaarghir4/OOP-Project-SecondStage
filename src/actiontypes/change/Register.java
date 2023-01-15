@@ -16,14 +16,12 @@ public class Register implements ChangePage {
     @Override
     public void changePageAction(final Input input, final ArrayNode output,
                                  final ActionInput actionInput) {
-//        VerifyErrors verifyErrors =  new VerifyErrors();
 
         if (VerifyErrors.checkPage(input, "homepage logged off")) {
             input.setCurrPage("register");
 
         } else {
-            OutputError outputError = new OutputError();
-            outputError.outputError(input, true, output);
+            OutputError.outputError(input, true, output);
         }
     }
 }

@@ -18,15 +18,11 @@ public class Filter implements OnPage {
     public void onPageAction(final Input input, final ActionInput actionInput,
                              final ArrayNode output) {
 
-//        VerifyErrors verifyErrors =  new VerifyErrors();
-
         if (VerifyErrors.checkPage(input, "movies")) {
-            OutputFilter outputFilter = new OutputFilter();
-            outputFilter.createOutputFilter(input, actionInput, output);
+            OutputFilter.createOutputFilter(input, actionInput, output);
 
         } else {
-            OutputError outputError = new OutputError();
-            outputError.outputError(input, true, output);
+            OutputError.outputError(input, true, output);
         }
     }
 }

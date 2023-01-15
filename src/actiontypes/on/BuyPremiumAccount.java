@@ -20,8 +20,6 @@ public class BuyPremiumAccount implements OnPage {
     public void onPageAction(final Input input, final ActionInput actionInput,
                              final ArrayNode output) {
 
-//        VerifyErrors verifyErrors =  new VerifyErrors();
-
         if (VerifyErrors.checkPage(input, "upgrades")) {
 
             // paying for the premium account
@@ -33,8 +31,7 @@ public class BuyPremiumAccount implements OnPage {
             currUserCredentials.setAccountType("premium");
 
         } else {
-            OutputError outputError = new OutputError();
-            outputError.outputError(input, true, output);
+            OutputError.outputError(input, true, output);
         }
     }
 }

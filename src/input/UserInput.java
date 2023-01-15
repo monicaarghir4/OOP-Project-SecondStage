@@ -18,23 +18,28 @@ public class UserInput {
 
     private ArrayList<MovieInput> ratedMovies = new ArrayList<>();
 
-    private ArrayList<Notifications> notifications = new ArrayList<>();
+    private ArrayList<NotificationsInput> notifications = new ArrayList<>();
 
-    private ArrayList<String> subscribedGenres = new ArrayList<>();
+    private final ArrayList<String> subscribedGenres = new ArrayList<>();
 
+    /**
+     * @return the list of the genres the user is subscribed to
+     */
     public ArrayList<String> getSubscribedGenres() {
         return subscribedGenres;
     }
 
-    public void setSubscribedGenres(final ArrayList<String> subscribedGenres) {
-        this.subscribedGenres = subscribedGenres;
-    }
-
-    public ArrayList<Notifications> getNotifications() {
+    /**
+     * @return the notifications a user has
+     */
+    public ArrayList<NotificationsInput> getNotifications() {
         return notifications;
     }
 
-    public void setNotifications(final ArrayList<Notifications> notifications) {
+    /**
+     * @param notifications changes the list of the notifications
+     */
+    public void setNotifications(final ArrayList<NotificationsInput> notifications) {
         this.notifications = notifications;
     }
 

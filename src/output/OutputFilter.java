@@ -11,14 +11,17 @@ import input.MovieInput;
 
 import java.util.ArrayList;
 
-public class OutputFilter {
+public final class OutputFilter {
+    private OutputFilter() {
+    }
+
     /**
      * method that creates the output for the filter action
      * @param input the information from the input
      * @param actionInput the data of the action
      * @param output where we will write the output
      */
-    public void createOutputFilter(final Input input, final ActionInput actionInput,
+    public static void createOutputFilter(final Input input, final ActionInput actionInput,
                                    final ArrayNode output) {
 
         FiltersInput filtersInput = actionInput.getFilters();
@@ -131,14 +134,12 @@ public class OutputFilter {
         ArrayNode movies = mapper.createArrayNode();
 
         for (MovieInput movieInput : sortedMovies) {
-            OutputMovieFormat movieFormat = new OutputMovieFormat();
-            movies.add(movieFormat.createOutputMovieFormat(movieInput));
+            movies.add(OutputMovieFormat.createOutputMovieFormat(movieInput));
         }
 
         outputFilter.set("currentMoviesList", movies);
 
-        OutputUserFormat outputUserFormat = new OutputUserFormat();
-        ObjectNode user = outputUserFormat.createOutputUserFormat(input.getCurrUser());
+        ObjectNode user = OutputUserFormat.createOutputUserFormat(input.getCurrUser());
 
         outputFilter.set("currentUser", user);
 
@@ -152,7 +153,9 @@ public class OutputFilter {
      * @param rating the type of the rating
      * @return the condition for the sorting
      */
-    private int compareRating(final MovieInput o1, final MovieInput o2, final String rating) {
+    private static int compareRating(final MovieInput o1, final MovieInput o2,
+                                     final String rating) {
+
         if (rating.compareTo("decreasing") == 0) {
             return Double.compare(o2.getRating(), o1.getRating());
         } else {
@@ -169,8 +172,8 @@ public class OutputFilter {
      * @param rating the type of rating
      * @return the condition for the sorting
      */
-    private int compare(final MovieInput o1, final MovieInput o2, final int duration,
-                        final int duration2, final String rating) {
+    private static int compare(final MovieInput o1, final MovieInput o2, final int duration,
+                               final int duration2, final String rating) {
 
         if (duration == duration2) {
             if (rating != null) {

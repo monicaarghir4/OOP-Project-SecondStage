@@ -2,7 +2,6 @@ package solving;
 
 import actiontypes.change.ChangePage;
 import actiontypes.change.ChangePageFactory;
-import actiontypes.change.Movies;
 import actiontypes.database.Database;
 import actiontypes.database.DatabaseFactory;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -10,10 +9,6 @@ import input.ActionInput;
 import input.Input;
 import actiontypes.on.OnPage;
 import actiontypes.on.OnPageFactory;
-import input.MovieInput;
-import input.Notifications;
-
-import java.util.*;
 
 public final class SolveActions {
     private static final SolveActions INSTANCE = new SolveActions();
@@ -48,7 +43,7 @@ public final class SolveActions {
                 OnPage onPage = onPageFactory.getOnPage(actionInput.getFeature());
 
                 onPage.onPageAction(input, actionInput, output);
-            } else if (actionInput.getType().compareTo("back") == 0){
+            } else if (actionInput.getType().compareTo("back") == 0) {
 
                 input.getBack().backAction(input, output);
             } else {
@@ -61,10 +56,10 @@ public final class SolveActions {
             }
         }
 
+        // the recommendation for the premium members
         if (input.getCurrUser() != null) {
             if (input.getCurrUser().getCredentials().getAccountType().compareTo("premium") == 0) {
-                Recommendation recommendation = new Recommendation();
-                recommendation.recommendation(input, output);
+                Recommendation.recommendation(input, output);
             }
         }
     }

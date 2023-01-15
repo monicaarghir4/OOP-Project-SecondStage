@@ -4,13 +4,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import input.CredentialsInput;
 
-public class OutputCredentials {
+public final class OutputCredentials {
+    private OutputCredentials() {
+    }
+
     /**
      * method that creates a json format for the credentials
      * @param credentialsInput the credentials
      * @return a json object node with the credentials
      */
-    public ObjectNode createOutputCredentialsFormat(final CredentialsInput credentialsInput) {
+    public static ObjectNode createOutputCredentialsFormat(final CredentialsInput
+                                                                   credentialsInput) {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode credentials = mapper.createObjectNode();
 

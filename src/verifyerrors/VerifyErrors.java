@@ -6,7 +6,10 @@ import input.Input;
 import input.UserInput;
 import output.OutputError;
 
-public class VerifyErrors {
+public final class VerifyErrors {
+    private VerifyErrors() {
+    }
+
     /**
      * static method that checks if the user is on the right page in order to execute an action
      * @param input the information from the input
@@ -37,8 +40,7 @@ public class VerifyErrors {
         }
 
         // if they're wrong we show an error
-        OutputError outputError = new OutputError();
-        outputError.outputError(input, true, output);
+        OutputError.outputError(input, true, output);
 
         input.setCurrPage("homepage logged off");
 

@@ -20,9 +20,6 @@ public class Movies implements ChangePage {
     public void changePageAction(final Input input, final ArrayNode output,
                                  final ActionInput actionInput) {
 
-//        VerifyErrors verifyErrors =  new VerifyErrors();
-        OutputError outputError = new OutputError();
-
         if (VerifyErrors.checkPage(input, "homepage logged in")
                 || VerifyErrors.checkPage(input, "see details")
                 || VerifyErrors.checkPage(input, "upgrades")
@@ -33,10 +30,10 @@ public class Movies implements ChangePage {
 
             input.getBack().getPagesStack().push("movies");
 
-            outputError.outputError(input, false, output);
+            OutputError.outputError(input, false, output);
 
         } else {
-            outputError.outputError(input, true, output);
+            OutputError.outputError(input, true, output);
         }
     }
 

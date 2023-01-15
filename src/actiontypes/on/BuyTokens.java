@@ -19,13 +19,12 @@ public class BuyTokens implements OnPage {
     public void onPageAction(final Input input, final ActionInput actionInput,
                              final ArrayNode output) {
 
-//        VerifyErrors verifyErrors =  new VerifyErrors();
-
         if (VerifyErrors.checkPage(input, "upgrades")) {
 
             // adding the tokens
             UserInput currUser = input.getCurrUser();
-            currUser.setTokensCount(currUser.getTokensCount() + Integer.parseInt(actionInput.getCount()));
+            currUser.setTokensCount(currUser.getTokensCount()
+                    + Integer.parseInt(actionInput.getCount()));
 
             // reducing the balance
             CredentialsInput currUserCredentials = currUser.getCredentials();
@@ -35,8 +34,7 @@ public class BuyTokens implements OnPage {
             currUserCredentials.setBalance(Integer.toString(newBalance));
 
         } else {
-            OutputError outputError = new OutputError();
-            outputError.outputError(input, true, output);
+            OutputError.outputError(input, true, output);
         }
     }
 }

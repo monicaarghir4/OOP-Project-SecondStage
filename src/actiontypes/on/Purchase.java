@@ -20,16 +20,12 @@ public class Purchase implements OnPage {
     public void onPageAction(final Input input, final ActionInput actionInput,
                              final ArrayNode output) {
 
-//        VerifyErrors verifyErrors =  new VerifyErrors();
-        OutputError outputError = new OutputError();
-
         if (VerifyErrors.checkPage(input, "see details")) {
             UserInput currUser = input.getCurrUser();
             CredentialsInput currUserCredentials = currUser.getCredentials();
-            OutputSeeDetails outputSeeDetails = new OutputSeeDetails();
 
             if (currUser.getPurchasedMovies().contains(input.getCurrMovie())) {
-                outputError.outputError(input, true, output);
+                OutputError.outputError(input, true, output);
 
                 return;
             }
@@ -43,7 +39,7 @@ public class Purchase implements OnPage {
                     currUser.setNumFreePremiumMovies(currUser.getNumFreePremiumMovies() - 1);
                     currUser.getPurchasedMovies().add(input.getCurrMovie());
 
-                    outputSeeDetails.createOutputSeeDetails(input, input.getCurrMovie(), output);
+                    OutputSeeDetails.createOutputSeeDetails(input, input.getCurrMovie(), output);
 
                 // if he doesn't have anymore free movies we check if he has tokens to buy the movie
                 } else if (currUser.getTokensCount() >= 2) {
@@ -51,10 +47,10 @@ public class Purchase implements OnPage {
                     currUser.setTokensCount(currUser.getTokensCount() - 2);
                     currUser.getPurchasedMovies().add(input.getCurrMovie());
 
-                    outputSeeDetails.createOutputSeeDetails(input, input.getCurrMovie(), output);
+                    OutputSeeDetails.createOutputSeeDetails(input, input.getCurrMovie(), output);
 
                 } else {
-                    outputError.outputError(input, true, output);
+                    OutputError.outputError(input, true, output);
                 }
 
             // if he doesn't have a premium account
@@ -64,14 +60,14 @@ public class Purchase implements OnPage {
                     currUser.setTokensCount(currUser.getTokensCount() - 2);
                     currUser.getPurchasedMovies().add(input.getCurrMovie());
 
-                    outputSeeDetails.createOutputSeeDetails(input, input.getCurrMovie(), output);
+                    OutputSeeDetails.createOutputSeeDetails(input, input.getCurrMovie(), output);
 
                 } else {
-                    outputError.outputError(input, true, output);
+                    OutputError.outputError(input, true, output);
                 }
             }
         } else {
-            outputError.outputError(input, true, output);
+            OutputError.outputError(input, true, output);
         }
     }
 }

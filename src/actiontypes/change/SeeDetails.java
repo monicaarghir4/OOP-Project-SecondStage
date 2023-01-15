@@ -19,9 +19,6 @@ public class SeeDetails implements ChangePage {
     public void changePageAction(final Input input, final ArrayNode output,
                                  final ActionInput actionInput) {
 
-//        VerifyErrors verifyErrors =  new VerifyErrors();
-        OutputError outputError = new OutputError();
-
         if (VerifyErrors.checkPage(input, "movies")) {
             boolean check = true;
 
@@ -30,8 +27,7 @@ public class SeeDetails implements ChangePage {
                 if (movieInput.getName().compareTo(actionInput.getMovie()) == 0) {
 
                     // sending it to the method that displays the details of the movie
-                    OutputSeeDetails outputSeeDetails = new OutputSeeDetails();
-                    outputSeeDetails.createOutputSeeDetails(input, movieInput, output);
+                    OutputSeeDetails.createOutputSeeDetails(input, movieInput, output);
 
                     check = false;
 
@@ -46,11 +42,11 @@ public class SeeDetails implements ChangePage {
 
             // if we don't find the movie in the list we send an error
             if (check) {
-                outputError.outputError(input, true, output);
+                OutputError.outputError(input, true, output);
             }
 
         } else {
-            outputError.outputError(input, true, output);
+            OutputError.outputError(input, true, output);
         }
     }
 }

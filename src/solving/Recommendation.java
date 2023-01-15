@@ -3,70 +3,82 @@ package solving;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import input.Input;
 import input.MovieInput;
-import input.Notifications;
+import input.NotificationsInput;
 import output.OutputRecommendation;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Map;
 
-public class Recommendation {
-    public void recommendation(Input input, ArrayNode output) {
+public final class Recommendation {
+    private Recommendation() {
+    }
 
-            Hashtable<String, Integer> genres = new Hashtable<>();
+    /**
+     * method that calculates the best movie for a recommendation
+     * @param input the information from the input
+     * @param output where we will write the output
+     */
+    public static void recommendation(final Input input, final ArrayNode output) {
 
-            for (MovieInput movie : input.getCurrUser().getLikedMovies()) {
+        Hashtable<String, Integer> genres = new Hashtable<>();
 
-                for (String genre : movie.getGenres()) {
+        for (MovieInput movie : input.getCurrUser().getLikedMovies()) {
 
-                    if (!genres.contains(genre)) {
-                        genres.put(genre, 1);
-                    } else {
-                        genres.put(genre, genres.get(genre) + 1);
-                    }
+            for (String genre : movie.getGenres()) {
+
+                if (!genres.contains(genre)) {
+                    genres.put(genre, 1);
+                } else {
+                    genres.put(genre, genres.get(genre) + 1);
                 }
             }
+        }
 
-            ArrayList<Map.Entry<String, Integer>> sortedGenres = sortValue(genres);
+        ArrayList<Map.Entry<String, Integer>> sortedGenres = sortValue(genres);
 
-            ArrayList<MovieInput> sortedMovies = new ArrayList<>(input.getCurrMoviesList());
+        ArrayList<MovieInput> sortedMovies = new ArrayList<>(input.getCurrMoviesList());
 
-            sortedMovies.sort((o1, o2) -> o2.getNumLikes() - o1.getNumLikes());
+        sortedMovies.sort((o1, o2) -> o2.getNumLikes() - o1.getNumLikes());
 
-            for (MovieInput movie : sortedMovies) {
-                if (!input.getCurrUser().getWatchedMovies().contains(movie)) {
-                    for (Map.Entry<String, Integer> genre : sortedGenres) {
-                        for (String genreMovie : movie.getGenres()) {
-                            if (genreMovie.compareTo(genre.getKey()) == 0) {
-                                Notifications notification = new Notifications();
+        for (MovieInput movie : sortedMovies) {
+            if (!input.getCurrUser().getWatchedMovies().contains(movie)) {
+                for (Map.Entry<String, Integer> genre : sortedGenres) {
+                    for (String genreMovie : movie.getGenres()) {
+                        if (genreMovie.compareTo(genre.getKey()) == 0) {
+                            NotificationsInput notification = new NotificationsInput();
 
-                                notification.setMovieName(movie.getName());
-                                notification.setMessage("Recommendation");
+                            notification.setMovieName(movie.getName());
+                            notification.setMessage("Recommendation");
 
-                                input.getCurrUser().getNotifications().add(notification);
+                            input.getCurrUser().getNotifications().add(notification);
 
-                                OutputRecommendation outputRecommendation = new OutputRecommendation();
-                                outputRecommendation.createOutputRecommendation(input, output);
+                            OutputRecommendation.createOutputRecommendation(input, output);
 
-                                return;
-                            }
+                            return;
                         }
                     }
                 }
             }
+        }
 
-            Notifications notification = new Notifications();
+        NotificationsInput notification = new NotificationsInput();
 
-            notification.setMovieName("No recommendation");
-            notification.setMessage("Recommendation");
+        notification.setMovieName("No recommendation");
+        notification.setMessage("Recommendation");
 
-            input.getCurrUser().getNotifications().add(notification);
+        input.getCurrUser().getNotifications().add(notification);
 
-        OutputRecommendation outputRecommendation = new OutputRecommendation();
-        outputRecommendation.createOutputRecommendation(input, output);
+        OutputRecommendation.createOutputRecommendation(input, output);
     }
 
-    public static ArrayList<Map.Entry<String, Integer>> sortValue(Hashtable<String, Integer> t) {
+    /**
+     * method that sorts the keys from a hashtable
+     * @param t the hashtable
+     * @return the sorted list
+     */
+    public static ArrayList<Map.Entry<String, Integer>> sortValue(final Hashtable<String,
+            Integer> t) {
 
         ArrayList<Map.Entry<String, Integer>> l = new ArrayList<>(t.entrySet());
 

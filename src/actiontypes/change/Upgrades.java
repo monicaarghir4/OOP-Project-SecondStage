@@ -17,8 +17,6 @@ public class Upgrades implements ChangePage {
     public void changePageAction(final Input input, final ArrayNode output,
                                  final ActionInput actionInput) {
 
-//        VerifyErrors verifyErrors =  new VerifyErrors();
-
         if (VerifyErrors.checkPage(input, "see details")
                 || VerifyErrors.checkPage(input, "homepage logged in")) {
             input.setCurrPage("upgrades");
@@ -26,8 +24,7 @@ public class Upgrades implements ChangePage {
             input.getBack().getPagesStack().push("upgrades");
 
         } else {
-            OutputError outputError = new OutputError();
-            outputError.outputError(input, true, output);
+            OutputError.outputError(input, true, output);
         }
     }
 }

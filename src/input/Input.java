@@ -19,14 +19,13 @@ public class Input {
 
     private MovieInput currMovie;
 
-    private Back back = new Back();
+    private final Back back = new Back();
 
+    /**
+     * @return returns a back object
+     */
     public Back getBack() {
         return back;
-    }
-
-    public void setBack(Back back) {
-        this.back = back;
     }
 
     /**

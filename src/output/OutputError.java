@@ -6,14 +6,17 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import input.Input;
 import input.MovieInput;
 
-public class OutputError {
+public final class OutputError {
+    private OutputError() {
+    }
+
     /**
      * method that creates the output for the errors
      * @param input the information from the input
      * @param error the value of the error
      * @param output where we will write the output
      */
-    public void outputError(final Input input, final boolean error,
+    public static void outputError(final Input input, final boolean error,
                             final ArrayNode output) {
 
         ObjectMapper mapper = new ObjectMapper();
@@ -39,15 +42,13 @@ public class OutputError {
         ArrayNode movies = mapper.createArrayNode();
 
         for (MovieInput movieInput : input.getCurrMoviesList()) {
-            OutputMovieFormat movieFormat = new OutputMovieFormat();
-            movies.add(movieFormat.createOutputMovieFormat(movieInput));
+            movies.add(OutputMovieFormat.createOutputMovieFormat(movieInput));
         }
 
         outputError.set("currentMoviesList", movies);
 
         // creating the user json format
-        OutputUserFormat outputUserFormat = new OutputUserFormat();
-        ObjectNode user = outputUserFormat.createOutputUserFormat(input.getCurrUser());
+        ObjectNode user = OutputUserFormat.createOutputUserFormat(input.getCurrUser());
 
         outputError.set("currentUser", user);
 

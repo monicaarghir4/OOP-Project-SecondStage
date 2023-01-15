@@ -24,14 +24,11 @@ public class RateTheMovie implements OnPage {
     public void onPageAction(final Input input, final ActionInput actionInput,
                              final ArrayNode output) {
 
-//        VerifyErrors verifyErrors =  new VerifyErrors();
-        OutputError outputError = new OutputError();
-
         if (VerifyErrors.checkPage(input, "see details")) {
 
             // verifying if the rate given is from 1 to 5
             if (actionInput.getRate() < MIN_RATE || actionInput.getRate() > MAX_RATE) {
-                outputError.outputError(input, true, output);
+                OutputError.outputError(input, true, output);
                 return;
             }
 
@@ -42,22 +39,9 @@ public class RateTheMovie implements OnPage {
                 if (currUser.getRatedMovies().contains(input.getCurrMovie())) {
                     input.getCurrMovie().getRatings().add(actionInput.getRate());
 
-                    for (MovieInput movieInput : input.getCurrMoviesList()) {
+                    modifyingRate(input, actionInput);
 
-                        if (movieInput.getName().compareTo(input.getCurrMovie().getName()) == 0) {
-
-                            movieInput.getRatings().add(actionInput.getRate());
-                            movieInput.setNumRatings(input.getCurrMovie().getNumRatings());
-                            movieInput.setRating(calculateRating(input.getCurrMovie().getRatings()));
-
-                            break;
-                        }
-                    }
-
-                    input.getCurrMovie().setRating(calculateRating(input.getCurrMovie().getRatings()));
-
-                    OutputSeeDetails outputSeeDetails = new OutputSeeDetails();
-                    outputSeeDetails.createOutputSeeDetails(input, input.getCurrMovie(), output);
+                    OutputSeeDetails.createOutputSeeDetails(input, input.getCurrMovie(), output);
 
                     return;
                 }
@@ -67,33 +51,35 @@ public class RateTheMovie implements OnPage {
                 input.getCurrMovie().setNumRatings(input.getCurrMovie().getNumRatings() + 1);
 
                 // also modifying the movie from the list of the current movies of a user
-                for (MovieInput movieInput : input.getCurrMoviesList()) {
-
-                    if (movieInput.getName().compareTo(input.getCurrMovie().getName()) == 0) {
-
-                        movieInput.getRatings().add(actionInput.getRate());
-                        movieInput.setNumRatings(input.getCurrMovie().getNumRatings());
-                        movieInput.setRating(calculateRating(input.getCurrMovie().getRatings()));
-
-                        break;
-                    }
-                }
-
-                // calculating the rating each time we get a new one
-                input.getCurrMovie().setRating(calculateRating(input.getCurrMovie().getRatings()));
+                modifyingRate(input, actionInput);
 
                 // adding the movie to the rated ones of the user
                 currUser.getRatedMovies().add(input.getCurrMovie());
 
-                OutputSeeDetails outputSeeDetails = new OutputSeeDetails();
-                outputSeeDetails.createOutputSeeDetails(input, input.getCurrMovie(), output);
+                OutputSeeDetails.createOutputSeeDetails(input, input.getCurrMovie(), output);
 
             } else {
-                outputError.outputError(input, true, output);
+                OutputError.outputError(input, true, output);
             }
         } else {
-            outputError.outputError(input, true, output);
+            OutputError.outputError(input, true, output);
         }
+    }
+
+    private void modifyingRate(final Input input, final ActionInput actionInput) {
+        for (MovieInput movieInput : input.getCurrMoviesList()) {
+
+            if (movieInput.getName().compareTo(input.getCurrMovie().getName()) == 0) {
+
+                movieInput.getRatings().add(actionInput.getRate());
+                movieInput.setNumRatings(input.getCurrMovie().getNumRatings());
+                movieInput.setRating(calculateRating(input.getCurrMovie().getRatings()));
+
+                break;
+            }
+        }
+
+        input.getCurrMovie().setRating(calculateRating(input.getCurrMovie().getRatings()));
     }
 
     /**

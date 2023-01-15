@@ -18,9 +18,6 @@ public class Login implements OnPage {
     public void onPageAction(final Input input, final ActionInput actionInput,
                              final ArrayNode output) {
 
-//        VerifyErrors verifyErrors =  new VerifyErrors();
-        OutputError outputError = new OutputError();
-
         CredentialsInput credentials = actionInput.getCredentials();
 
         if (VerifyErrors.checkPage(input, "login")) {
@@ -39,11 +36,11 @@ public class Login implements OnPage {
 
                 input.getBack().getPagesStack().push("homepage logged in");
 
-                outputError.outputError(input, false, output);
+                OutputError.outputError(input, false, output);
             }
 
         } else {
-            outputError.outputError(input, true, output);
+            OutputError.outputError(input, true, output);
         }
     }
 }

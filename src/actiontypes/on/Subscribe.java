@@ -8,8 +8,15 @@ import output.OutputError;
 import verifyerrors.VerifyErrors;
 
 public class Subscribe implements OnPage {
+    /**
+     * method that subscribes an user to a genre
+     * @param input the information from the input
+     * @param actionInput the data about the action we are performing
+     * @param output where we will write the output
+     */
     @Override
-    public void onPageAction(Input input, ActionInput actionInput, ArrayNode output) {
+    public void onPageAction(final Input input, final ActionInput actionInput,
+                             final ArrayNode output) {
 
         if (VerifyErrors.checkPage(input, "see details")) {
             MovieInput currMovie = input.getCurrMovie();
@@ -23,17 +30,17 @@ public class Subscribe implements OnPage {
                 }
             }
 
+            // if we don't find the genre in the list of genres of the current movie
             if (subscribedGenre == null) {
-                OutputError outputError = new OutputError();
-                outputError.outputError(input, true, output);
+                OutputError.outputError(input, true, output);
 
                 return;
             }
 
             for (String subscribedGenres : input.getCurrUser().getSubscribedGenres()) {
                 if (subscribedGenres.compareTo(subscribedGenre) == 0) {
-                    OutputError outputError = new OutputError();
-                    outputError.outputError(input, true, output);
+
+                    OutputError.outputError(input, true, output);
 
                     return;
                 }
@@ -42,8 +49,7 @@ public class Subscribe implements OnPage {
             input.getCurrUser().getSubscribedGenres().add(subscribedGenre);
 
         } else {
-            OutputError outputError = new OutputError();
-            outputError.outputError(input, true, output);
+            OutputError.outputError(input, true, output);
         }
     }
 }

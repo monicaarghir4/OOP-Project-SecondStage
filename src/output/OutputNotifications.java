@@ -2,10 +2,18 @@ package output;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import input.Notifications;
+import input.NotificationsInput;
 
-public class OutputNotifications {
-    public ObjectNode createOutputNotifications(final Notifications notification) {
+public final class OutputNotifications {
+    private OutputNotifications() {
+    }
+
+    /**
+     * method that creates an output for a notification
+     * @param notification the data
+     * @return an object for the output
+     */
+    public static ObjectNode createOutputNotifications(final NotificationsInput notification) {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode notifications = mapper.createObjectNode();
 

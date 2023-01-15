@@ -18,8 +18,6 @@ public class Register implements OnPage {
     public void onPageAction(final Input input, final ActionInput actionInput,
                              final ArrayNode output) {
 
-//        VerifyErrors verifyErrors =  new VerifyErrors();
-
         if (VerifyErrors.checkPage(input, "register")) {
             UserInput newUser = new UserInput(actionInput.getCredentials());
 
@@ -29,12 +27,10 @@ public class Register implements OnPage {
 
             input.setCurrPage("homepage logged in");
 
-            OutputError outputError = new OutputError();
-            outputError.outputError(input, false, output);
+            OutputError.outputError(input, false, output);
 
         } else {
-            OutputError outputError = new OutputError();
-            outputError.outputError(input, true, output);
+            OutputError.outputError(input, true, output);
         }
     }
 }

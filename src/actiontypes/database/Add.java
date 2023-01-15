@@ -5,12 +5,20 @@ import input.*;
 import output.OutputError;
 
 public class Add implements Database {
+    /**
+     * method that adds a new movie in the database of the platform
+     * @param input the information from the input
+     * @param output where we will write the output
+     * @param actionInput the data about the action we are performing
+     */
     @Override
-    public void databaseAction(Input input, ArrayNode output, ActionInput actionInput) {
+    public void databaseAction(final Input input, final ArrayNode output,
+                               final ActionInput actionInput) {
+
+        // checking if the movie is already in the database
         for (MovieInput movie : input.getMovies()) {
             if (movie.getName().compareTo(actionInput.getAddedMovie().getName()) == 0) {
-                OutputError outputError = new OutputError();
-                outputError.outputError(input, true, output);
+                OutputError.outputError(input, true, output);
 
                 return;
             }
@@ -18,24 +26,20 @@ public class Add implements Database {
 
         input.getMovies().add(actionInput.getAddedMovie());
 
+        // notifying the users that are subscribed to the movies genres about the new movie
         for (UserInput user : input.getUsers()) {
             for (String genre : actionInput.getAddedMovie().getGenres()) {
+
                 if (user.getSubscribedGenres().contains(genre)) {
-                    if (actionInput.getAddedMovie().getCountriesBanned().contains(user.getCredentials().getCountry())) {
-                        OutputError outputError = new OutputError();
-                        outputError.outputError(input, true, output);
 
-                        return;
-                    } else {
-                        Notifications notification = new Notifications();
+                    NotificationsInput notification = new NotificationsInput();
 
-                        notification.setMovieName(actionInput.getAddedMovie().getName());
-                        notification.setMessage("ADD");
+                    notification.setMovieName(actionInput.getAddedMovie().getName());
+                    notification.setMessage("ADD");
 
-                        user.getNotifications().add(notification);
+                    user.getNotifications().add(notification);
 
-                        break;
-                    }
+                    break;
                 }
             }
         }

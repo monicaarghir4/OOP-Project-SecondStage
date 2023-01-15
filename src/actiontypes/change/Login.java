@@ -17,15 +17,12 @@ public class Login implements ChangePage {
     public void changePageAction(final Input input, final ArrayNode output,
                                  final ActionInput actionInput) {
 
-//        VerifyErrors verifyErrors =  new VerifyErrors();
-
         // if the user isn't on the right page the page won't change
         if (VerifyErrors.checkPage(input, "homepage logged off")) {
             input.setCurrPage("login");
 
         } else {
-            OutputError outputError = new OutputError();
-            outputError.outputError(input, true, output);
+            OutputError.outputError(input, true, output);
         }
     }
 }

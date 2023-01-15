@@ -4,22 +4,24 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import input.MovieInput;
-import input.Notifications;
+import input.NotificationsInput;
 import input.UserInput;
 
-public class OutputUserFormat {
+public final class OutputUserFormat {
+    private OutputUserFormat() {
+    }
+
     /**
      * method that creates the output format for a user
      * @param userInput the user
      * @return a json object node
      */
-    public ObjectNode createOutputUserFormat(final UserInput userInput) {
+    public static ObjectNode createOutputUserFormat(final UserInput userInput) {
 
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode user = mapper.createObjectNode();
 
-        OutputCredentials outputCredentials = new OutputCredentials();
-        ObjectNode credentials = outputCredentials.
+        ObjectNode credentials = OutputCredentials.
                 createOutputCredentialsFormat(userInput.getCredentials());
 
         user.set("credentials", credentials);
@@ -33,8 +35,7 @@ public class OutputUserFormat {
 
         } else {
             for (MovieInput movie : userInput.getPurchasedMovies()) {
-                OutputMovieFormat movieFormat = new OutputMovieFormat();
-                purchasedMovies.add(movieFormat.createOutputMovieFormat(movie));
+                purchasedMovies.add(OutputMovieFormat.createOutputMovieFormat(movie));
             }
             user.set("purchasedMovies", purchasedMovies);
         }
@@ -46,8 +47,7 @@ public class OutputUserFormat {
 
         } else {
             for (MovieInput movie : userInput.getWatchedMovies()) {
-                OutputMovieFormat movieFormat = new OutputMovieFormat();
-                watchedMovies.add(movieFormat.createOutputMovieFormat(movie));
+                watchedMovies.add(OutputMovieFormat.createOutputMovieFormat(movie));
             }
 
             user.set("watchedMovies", watchedMovies);
@@ -60,8 +60,7 @@ public class OutputUserFormat {
 
         } else {
             for (MovieInput movie : userInput.getLikedMovies()) {
-                OutputMovieFormat movieFormat = new OutputMovieFormat();
-                likedMovies.add(movieFormat.createOutputMovieFormat(movie));
+                likedMovies.add(OutputMovieFormat.createOutputMovieFormat(movie));
             }
 
             user.set("likedMovies", likedMovies);
@@ -74,8 +73,7 @@ public class OutputUserFormat {
 
         } else {
             for (MovieInput movie : userInput.getRatedMovies()) {
-                OutputMovieFormat movieFormat = new OutputMovieFormat();
-                ratedMovies.add(movieFormat.createOutputMovieFormat(movie));
+                ratedMovies.add(OutputMovieFormat.createOutputMovieFormat(movie));
             }
 
             user.set("ratedMovies", ratedMovies);
@@ -87,10 +85,8 @@ public class OutputUserFormat {
             user.set("notifications", null);
 
         } else {
-            for (Notifications notification : userInput.getNotifications()) {
-                OutputNotifications outputNotifications = new OutputNotifications();
-                notifications.add(outputNotifications.createOutputNotifications(notification));
-
+            for (NotificationsInput notification : userInput.getNotifications()) {
+                notifications.add(OutputNotifications.createOutputNotifications(notification));
             }
 
             user.set("notifications", notifications);

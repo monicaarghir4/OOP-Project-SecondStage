@@ -17,8 +17,6 @@ public class LogOut implements ChangePage {
     public void changePageAction(final Input input, final ArrayNode output,
                                  final ActionInput actionInput) {
 
-//        VerifyErrors verifyErrors =  new VerifyErrors();
-
         if (VerifyErrors.checkPage(input, "homepage logged in")
                 || VerifyErrors.checkPage(input, "see details")
                 || VerifyErrors.checkPage(input, "upgrades")
@@ -32,8 +30,7 @@ public class LogOut implements ChangePage {
             }
 
         } else {
-            OutputError outputError = new OutputError();
-            outputError.outputError(input, true, output);
+            OutputError.outputError(input, true, output);
         }
     }
 }
